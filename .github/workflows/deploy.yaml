@@ -15,25 +15,25 @@ jobs:
 
       - run: docker build -t jreklaw117/multi-client ./client
       - run: docker build -t jreklaw117/multi-nginx ./nginx
-      - run: docker build -t jreklaw117/multi-server ./server
+      - run: docker build -t jreklaw117/multi-api ./api
       - run: docker build -t jreklaw117/multi-worker ./worker
  
       - run: docker push jreklaw117/multi-client
       - run: docker push jreklaw117/multi-nginx
-      - run: docker push jreklaw117/multi-server
+      - run: docker push jreklaw117/multi-api
       - run: docker push jreklaw117/multi-worker
  
-      - name: Generate deployment package
-        run: zip -r deploy.zip . -x '*.git*'
+      # - name: Generate deployment package
+      #   run: zip -r deploy.zip . -x '*.git*'
  
-      - name: Deploy to EB
-        uses: einaregilsson/beanstalk-deploy@v18
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          application_name: react-docker-app
-          environment_name: React-docker-app-env
-          existing_bucket_name: elasticbeanstalk-us-east-1-185096722954
-          region: us-east-1
-          version_label: ${{ github.sha }}
-          deployment_package: deploy.zip
+      # - name: Deploy to EB
+      #   uses: einaregilsson/beanstalk-deploy@v18
+      #   with:
+      #     aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+      #     aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+      #     application_name: react-docker-app
+      #     environment_name: React-docker-app-env
+      #     existing_bucket_name: elasticbeanstalk-us-east-1-185096722954
+      #     region: us-east-1
+      #     version_label: ${{ github.sha }}
+      #     deployment_package: deploy.zip
